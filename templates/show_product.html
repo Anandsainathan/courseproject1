@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Product List</title>
+    <style>
+        body {
+            background-image: url("{% static 'images/bg.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            font-family: 'Helvetica', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            background-color: rgba(202, 175, 102, 0.9);
+            padding: 20px;
+            width: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(148, 6, 6, 0.2);
+            margin: 20px auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #82994b;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #bbdb64;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #a4c45a;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .action-links {
+            display: flex;
+            justify-content: space-around; /* Center the action buttons horizontally */
+            align-items: center;
+        }
+
+        .action-links a {
+            padding: 6px 12px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .action-links a:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="submit"] {
+            color: #fff;
+            padding: 8px 16px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h2>PRODUCT INFORMATION</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">PRODUCT NAME</th>
+                    <th scope="col">PRICE</th>
+                    <th scope="col">QUANTITY</th>
+                    <th scope="col">IMAGE</th>
+                    <th scope="col">ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for q in qr %}
+                <tr>
+                    <td>{{ q.Product_name }}</td>
+                    <td>{{ q.Product_price }}</td>
+                    <td>{{ q.Product_quantity }}</td>
+                    <td>
+                        {{ q.Image }}<br>
+                        <img src="{{ q.Image.url }}" height="100" width="100" >
+                    </td>
+                    <td class="action-links">
+                        <a href="{% url 'prod_edit' q.id %}">EDIT</a>
+                        <a href="{% url 'delete' q.id %}">DELETE</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
